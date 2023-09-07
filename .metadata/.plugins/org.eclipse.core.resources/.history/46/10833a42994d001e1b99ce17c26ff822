@@ -1,0 +1,313 @@
+package com.spring.hibernate;
+
+import java.util.List;
+import java.util.Set;
+
+import javax.security.auth.login.LoginException;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
+import com.spring.hibernate.model.Car;
+import com.spring.hibernate.model.Client;
+import com.spring.hibernate.model.Color;
+import com.spring.hibernate.model.Data;
+import com.spring.hibernate.model.Info;
+import com.spring.hibernate.model.Person;
+import com.spring.hibernate.model.Student;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		/*String url ="jdbc:mysql://localhost:3306/employee?useSSL=false";
+		String username ="root";
+		String password ="mostafa";
+		
+		try {
+			Connection connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Connected successfully!");
+			System.out.println(connection);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}*/
+		
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")			
+				
+				//.addAnnotatedClass(Client.class)
+				//.addAnnotatedClass(Person.class)
+				//.addAnnotatedClass(Data.class)
+				//.addAnnotatedClass(Student.class)
+				//.addAnnotatedClass(Info.class)
+				.addAnnotatedClass(Car.class)
+				.addAnnotatedClass(Color.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		/*Client client = new Client("Mosrafa Khater", 23, "Egypt");
+		client.setId((long) 1);
+//		client.setFullname("Mosrafa Khater");
+//		client.setAge(23);;
+//		client.setAddress("Egypt");
+		
+		Client client2 = new Client("Jane", 27, "Paris");
+		//client2.setId((long) 2);
+		
+		Client client3 = new Client("Mohamed", 30, "Saudi Arabia");
+		//client3.setId((long) 3);*/
+		
+		
+		long id = 2;
+		try {
+			session.beginTransaction();
+			/*session.save(client);
+			session.save(client2);
+			session.save(client3);*/
+			
+			/*Client cilent = session.get(Client.class, id);
+			
+			cilent.setFullname("Ali");
+			cilent.setAge(20);
+			cilent.setAddress("USA");*/
+			
+			/*Client c = new Client("Mohamed", 15, "Germany");
+			//c.setId((long) 2);
+			//session.update(c);
+			session.delete(c);
+			session.getTransaction().commit();
+			//System.out.println(cilent.getFullname() + "\n" + cilent.getAddress());
+			//System.out.println(c.getFullname() + "\n" + c.getAddress());*/
+			
+		
+			//List<Client> clients = session.createQuery("from Client").list();
+			//List<Client> clients = session.createQuery("from Client c where c.fullname = 'eamy'").list();
+			// frist letter letter%        last letter %letter      any where letter %letter%
+			//List<Client> clients = session.createQuery("from Client c where c.fullname Like 'M%'").list();
+			
+			/*List<Client> clients = session.createQuery("from Client c where" 
+			+ "c.fullname = 'eamy'" 
+			+ "OR c.address = 'Germany'").list();*/
+			//session.createQuery("update Client set age = 10 where id = 6 ").executeUpdate();
+			//session.createQuery("delete Client where id = 6 ").executeUpdate();
+			
+			/*//Query q = session.createQuery("from Client where id = 1");
+			//Query q = session.createQuery("from Client where id = ?1");
+			//Query q = session.createQuery("from Client where id = ?1 or fullname = ?2");
+			//Query q = session.createQuery("from Client where id = :x or fullname = :y");*/
+			
+			/*//Query q = session.createQuery("select Max(id)from Client");
+			//Query q = session.createQuery("select Min(id)from Client");
+			//Query q = session.createQuery("select sum(id)from Client");
+			//Query q = session.createQuery("select avg(age)from Client");
+			//Query q = session.createQuery("select count(fullname)from Client");
+			Query q = session.createQuery("select count(distinct address)from Client");*/
+			
+			
+			/*//Long []ids = {(long) 1,(long) 3,(long) 5};
+			Criteria c = session.createCriteria(Client.class);*/
+			
+			
+			/*q.setFirstResult(0);
+			q.setMaxResults(2);*/
+			/*q.setInteger(1, (int) id);
+			q.setString(2, "Ali");*/
+			/*q.setInteger("x", (int) id);
+			q.setString("y", "Ali");
+			List<Client> clients = q.list();*/
+			
+			/*//System.out.println("Max: " + q.list().toString());
+			//System.out.println("Max: " + q.list().get(0));
+			//System.out.println("Min: " + q.list().get(0));
+			//System.out.println("Sum: " + q.list().get(0));
+			//System.out.println("Average: " + q.list().get(0));
+			//System.out.println("Count: " + q.list().get(0));
+			System.out.println("Count: " + q.list().get(0));*/
+			
+			
+			/*//c.setFirstResult(0);
+			//c.setMaxResults(2);
+			//c.add(Restrictions.gt("id", (long) 3));
+			//c.add(Restrictions.lt("id", (long) 3));
+			//c.add(Restrictions.between("id", (long) 2, (long) 5 ));
+			//c.add(Restrictions.in("id", ids ));
+			//c.add(Restrictions.isNotNull("address"));
+			//c.add(Restrictions.isEmpty("address"));
+			//c.add(Restrictions.eq("fullname" , "Mostafa"));
+			//c.add(Restrictions.like("fullname", "m", MatchMode.START));
+			//c.add(Restrictions.like("fullname", "m", MatchMode.END));
+			//c.add(Restrictions.like("fullname", "m", MatchMode.ANYWHERE));
+			Criterion c1 = Restrictions.eq("address", "Egypt");
+			Criterion c2 = Restrictions.eq("fullname", "Jane");
+			//LogicalExpression or = Restrictions.or(c1, c2);
+			//LogicalExpression and = Restrictions.and(c1, c2);
+			//c.add(or);
+			//c.add(and);
+			List<Client> clients = c.list();*/
+			
+			
+			/*//c.setProjection(Projections.max("id"));
+			//c.setProjection(Projections.min("id"));
+			//c.setProjection(Projections.avg("id"));
+			//c.setProjection(Projections.sum("id"));
+			//c.setProjection(Projections.count("id"));
+			//c.setProjection(Projections.countDistinct("address"));
+			//List<Client> clients = c.list();
+			//System.out.println("Max: " + clients.get(0));
+			//System.out.println("Min: " + clients.get(0));
+			//System.out.println("Average: " + clients.get(0));
+			//System.out.println("Sum: " + clients.get(0));
+			//System.out.println("Count: " + clients.get(0));
+			//System.out.println("CountDistinct: " + clients.get(0));*/
+			
+			/*Person p = new Person();
+			//p.setName("Khater");
+			p.setId(1);
+			Data d = new Data();
+			//d.setAge("23");
+			d.setId(1);*/
+			
+			/*session.save(d);
+			//p.setData(d);
+			//session.save(p);
+			Person res = session.get(Person.class, p.getId());
+			//session.delete(res);
+			res.setName("Mostafa Khater");
+			res.getData().setAge("20");*/
+			
+			/*Data res = session.get(Data.class, d.getId());
+			session.getTransaction().commit();
+			//System.out.println("Name: " + res.getName() + "\n" + "Age: " + res.getData().getAge());
+			
+			System.out.println("Name: " + res.getPerson().getName() + "\n" + "Age: " + res.getAge());
+			session.delete(res);*/
+			
+			
+			/*Student s = new Student();
+			s.setName("Khater");
+			Info i = new Info();
+			i.setPhone("+2 01157593140 ");
+			s.getInfos().add(i);
+			
+			Info i1 = new Info();
+			i1.setPhone("+2 01057593699 ");
+			s.getInfos().add(i1);
+			
+			i.setStudent(s);
+			i1.setStudent(s);*/
+			
+			
+			/*int id = 2;
+			Student s = new Student();
+			s = session.get(Student.class, id);
+			/*System.out.println(s.getName());
+			for(Info i : s.getInfos()){
+				System.out.println(i.getPhone());
+			}*/
+			
+			/*s.setName("Ahmed");
+			s.getInfos().get(0).setPhone("+2 01087006231");
+			s.getInfos().get(1).setPhone("+2 01054320078");
+			
+			//session.update(s);
+			session.delete(s);*/
+			
+			/*session.close();
+			System.out.println(s.getName());
+			System.out.println(s.getInfos().get(0).getPhone());*/
+			
+			/*//session.save(s);
+			session.getTransaction().commit();*/
+			
+			
+			/*Car c1 = new Car("Car1");
+			Car c2 = new Car("Car2");
+			Car c3 = new Car("Car3");
+			
+			Color col1= new Color("red");
+			Color co12 = new Color("blue");
+			Color co13 = new Color("black");
+			
+//			c1.getColors().add(col1);
+//			c1.getColors().add(co12);
+//			c1.getColors().add(co13);
+//			
+//			c2.getColors().add(col1);
+//			c2.getColors().add(co12);
+//			c2.getColors().add(co13);
+//			
+//			c3.getColors().add(col1);
+//			c3.getColors().add(co12);
+//			c3.getColors().add(co13);
+			/////////////////////////
+			col1.getCars().add(c1);
+			col1.getCars().add(c2);
+			col1.getCars().add(c3);
+			
+			co12.getCars().add(c1);
+			co12.getCars().add(c2);
+			co12.getCars().add(c3);
+			
+			co13.getCars().add(c1);
+			co13.getCars().add(c2);
+			co13.getCars().add(c3);
+			
+//			session.save(c1);
+//			session.save(c2);
+//			session.save(c3);
+			
+			session.save(col1);
+			session.save(co12);
+			session.save(co13);
+			session.getTransaction().commit();*/
+			
+			
+			/*Car c = session.get(Car.class, (int)id);
+			//session.close();
+			/*System.out.println(c.getName());
+			for(Color c1 : c.getColors()){
+				System.out.println(c1.getName());
+			}*/
+			
+			Color co = session.get(Color.class, (int)id);
+			//session.close();
+			System.out.println(co.getName());
+			/*for(Car c1 : co.getCars()){
+				System.out.println(c1.getName());
+			}*/
+			
+			session.getTransaction().commit();
+			//System.out.println(clients);
+			/*for (int i = 0; i < clients.size(); i++) {
+				System.out.println(clients.get(i).getFullname() + "\n" + clients.get(i).getAge() + "\n" + clients.get(i).getAddress());	
+			}*/
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+		} finally {
+			session.close();
+		}
+
+	}
+
+}

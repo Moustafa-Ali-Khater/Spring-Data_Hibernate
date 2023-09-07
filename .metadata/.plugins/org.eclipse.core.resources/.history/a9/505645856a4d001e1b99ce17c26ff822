@@ -1,0 +1,7 @@
+package com.spring.hibernate.model;
+
+public class Info {
+
+	private int id;
+	private String phone
+}

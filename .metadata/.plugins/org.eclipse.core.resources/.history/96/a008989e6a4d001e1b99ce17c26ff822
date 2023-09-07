@@ -1,0 +1,13 @@
+package com.spring.hibernate.model;
+
+public class Info {
+
+	private int id;
+	private String phone;
+	public Info() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+}
